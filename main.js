@@ -29,6 +29,13 @@ function speak()
     synth.speak(utterThis);
 
     Webcam.attach(camera);
+
+     
+    setTimeout(function(){
+        takeSnap();
+        save();
+    },5000
+    );
 }
 
 camera = document.getElementById("camera");
@@ -36,3 +43,19 @@ camera = document.getElementById("camera");
 Webcam.set({
     width : 360, height : 250, image_format : "png", png_quality : 90
 });
+
+function takeSnap()
+{
+    Webcam.snap(function(data_uri){
+        document.getElementById("result").innerHTML = '<img id= "selfie_img" src= " '+data_uri+' ">'; 
+    } );
+    
+}
+
+function save()
+{
+    link = document.getElementById("link");
+    img = document.getElementById("selfie_img").src;
+    link.href = img;
+    link.click();
+}
